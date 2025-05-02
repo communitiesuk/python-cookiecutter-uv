@@ -1,4 +1,4 @@
-# Poetry Python Cookiecutter
+# UV Python Cookiecutter
 
 Basic Python template using [`cookiecutter`](https://github.com/cookiecutter/cookiecutter) and [`uv`](https://docs.astral.sh/uv/).
 
@@ -6,7 +6,7 @@ Objective: make it simpler to set up new Python projects with commonly used deve
 
 This *should* be platform agnostic and work in DAP.
 
-There is a step-by-step installation document.
+There are step-by-step installation instructions for [macOS/Linux](https://github.com/communitiesuk/python-cookiecutter-uv/blob/main/docs/unix.md) and [Windows]([macOS/Linux](https://github.com/communitiesuk/python-cookiecutter-uv/blob/main/docs/unix.md)) machines.
 
 If you have any issues *and/or* suggestions please contact jordan.pinder@communities.gov.uk.
 
