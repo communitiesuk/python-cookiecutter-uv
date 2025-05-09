@@ -11,7 +11,7 @@ jobs:
     strategy:
       matrix:
         python-version: ["3.12", "3.13"]
-        os: [ubuntu-latest, windows-latest, macos-latest]
+        os: [{% for os in cookiecutter.target_os.split(',') %}"{{ os.strip() }}"{% if not loop.last %}, {% endif %}{% endfor %}]
 
     runs-on: ${{ '{{ matrix.os }}' }}
 
