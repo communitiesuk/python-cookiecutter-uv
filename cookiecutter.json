@@ -10,5 +10,6 @@
   "include_unit_testing": [
     "y",
     "n"
-  ]
+  ],
+  "target_operating_systems": "ubuntu-latest, macos-latest, windows-latest"
 }
