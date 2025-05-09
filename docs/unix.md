@@ -89,17 +89,19 @@ git push -u origin main
 - Replace `<project-name>` with the name you gave to the GitHub repository
 
 ### Step 6: Set up the development environment
-Install Python dependencies.
+Recommend using the `Makefile` commnands that come with the template:
 ```bash
-uv sync
-uv lock --locked
+make install
 ```
 
-Install and run the `pre-commit` hooks:
+This will install the `uv` virtual environment and `pre-commit` hooks.
+
+We can run the code linting & formatting:
 ```bash
-uv run pre-commit install
-uv run pre-commit run -a
+make check
 ```
+
+Worth noting we also have commands in there for building distribution wheels which might be helpful when deploying projects to Databricks. 
 
 Commit the changes:
 ```bash
