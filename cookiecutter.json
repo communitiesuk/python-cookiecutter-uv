@@ -1,9 +1,8 @@
 {
-  "author_name": "Joe Bloggs",
-  "author_email": "joe.bloggs@communities.gov.uk",
-  "project_name": "example-project | Example Project",
-  "project_slug": "{{ cookiecutter.project_name|lower|replace(' ', '-')}}",
-  "package_name": "{{ cookiecutter.project_name|lower|replace(' ', '_')|replace('-', '_') }}",
+  "author_name": "Your Name",
+  "author_email": "your.name@communities.gov.uk",
+  "project_name": "your-project-name",
+  "project_slug": "{{ cookiecutter.project_name|lower|replace(' ', '_')|replace('-', '_') }}",
   "project_description": "Provide a short description about the project.",
   "git_upstream": "https://github.com/communitiesuk | https://github.com/your-user-profile",
   "git_url": "{{cookiecutter.git_upstream}}/{{cookiecutter.project_slug}}",
