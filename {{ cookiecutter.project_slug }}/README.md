@@ -18,30 +18,30 @@ It also includes pull request and issue templates.
 
 ## Install
 
-Default Python is set to `>=3.12` and `<3.14`. Make sure you have a relevant Python version.
-
-Follow the `uv` and `pre-commit` [installation instructions](https://github.com/communitiesuk/python-cookiecutter-uv).
-
-Install project dependencies with `uv`:
+Assumes you've installed `uv` & `pre-commit`. If not, run:
 
 ```bash
-uv sync
-uv lock --locked
+brew install uv
+brew install pre-commit
+uv --version
+pre-commit --version
 ```
 
-Install `pre-commit` hooks:
+We've included a `Makefile` for ease of use.
 
-```bash
-uv run pre-commit install
+Install the `uv` virtual environment and `pre-commit` hooks:
+
+```zsh
+make install
 ```
 
-## Linting & formatting
+For code linting and formatting:
 
-Using `uv` and `pre-commit`:
-
-```bash
-uv run pre-commit run -a
+```zsh
+make check
 ```
+
+_Note_: `pre-commit` will also run the linting and formatting when committing code.
 
 {% if cookiecutter.include_unit_testing == "y" %}
 
@@ -52,7 +52,7 @@ By default, we use `pytest`.
 Assuming dependencies have been installed, the testing suite can be ran using:
 
 ```bash
-uv run pytest tests --cov --cov-config=pyproject.toml --cov-report=xml
+make test
 ```
 
 {% endif %}
@@ -63,7 +63,7 @@ A GitHub Workflow is an automated process set up in a repository that runs jobs 
 
 By default in `.github`, we have:
 
-- `actions`: `setup-poetry-env` to set up the poetry environment
+- `actions`: `setup-uv-env` to set up the poetry environment
 - `linters`: `.mypy.ini` configuration file for `mypy` type checking.
 - `workflows`: `main.yml` to run all linting, formatting and testing.
 
@@ -71,7 +71,9 @@ If you have not selected the `include_unit_testing` when creating the repo with 
 
 ## Specific OS & Python versions?
 
-As default, workflows test across `ubuntu`, `macOS` and `windows` operating systems for Python versions `3.12` and `3.13`.
+Default Python is set to >=3.12 and <3.14.
+
+Workflows test across which operating system you specified in the `cookiecutter` set up, but it will test for Python 3.12 & 3.13.
 
 If you want to test across specific operating systems and Python versions, amend the following files:
 
