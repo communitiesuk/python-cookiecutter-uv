@@ -87,5 +87,5 @@ skip_empty = true
 
 [tool.coverage.run]
 branch = true
-source = "{{ cookiecutter.project_slug }}"
+source = ["{{ cookiecutter.package_name }}"]
 {%- endif %}
