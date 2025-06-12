@@ -36,23 +36,79 @@ cookiecutter --version
 pre-commit --version
 ```
 
-### Step 3: set global git
+### Step 3: configure git
 
-This is usuall already done, but you'll need your global git credentials set up before connecting to a repository.
+Here we'll configure global credential and a SSH key.
 
-You can check this by running the following in a terminal:
-
-```bash
-git config --global user.name
-git config --global user.email
-```
-
-If they don't return the expected information, run:
+Add your credentials:
 
 ```bash
 git config --global user.name "your-git-profile"
 git config --global user.email "Joe.Bloggs@communities.gov.uk"
 ```
+
+Generate a SSH key with a passphrase:
+
+```bash
+ssh-keygen -t ed25519 -C "your_email@example.com"
+
+```
+
+Start the ssh-agent:
+
+```bash
+eval "$(ssh-agent -s)"
+
+```
+
+Depending on your environment, you may need to use a different command. For example, you may need to use root access by running sudo -s -H before starting the ssh-agent, or you may need to use exec ssh-agent bash or exec ssh-agent zsh to run the ssh-agent.
+
+We need to modify the ~/.ssh/config file. Open it with:
+
+```bash
+open ~/.ssh/config
+```
+
+If it doesn't exist, use:
+
+```bash
+touch ~/.ssh/config
+```
+
+Modify the content:
+
+```bash
+Host github.com
+  AddKeysToAgent yes
+  UseKeychain yes
+  IdentityFile ~/.ssh/id_ed25519
+```
+
+***Note***:
+
+- If you chose not to add a passphrase to your key, you should omit the UseKeychain line.
+- If you see a Bad configuration option: usekeychain error, add an additional line to the configuration's' Host *.github.com section.
+
+Store the SSH key in the agent:
+
+```bash
+ssh-add --apple-use-keychain ~/.ssh/id_ed25519
+```
+
+Copy the content of the key:
+
+```bash
+pbcopy < ~/.ssh/id_ed25519.pub
+```
+
+Then:
+
+1. Go to your [GitHub key settings](https://github.com/settings/keys)
+2. Click `New SSH Key`
+3. Name `Title` something useful (e.g. `Macbook key`)
+4. In `Key type`, `Authentication` should be fine
+5. In the `Key`, copy the content of your key
+6. Click `Add SSH key`
 
 ### Step 4: Set up your GitHub repository
 
@@ -69,7 +125,7 @@ Give it a name that only contains alphanumeric characters and optionally `-` (e.
 On your local machine, navigate to the directory in which you want to create a project directory, and run the following command:
 
 ```bash
-cookiecutter https://github.com/communitiesuk/python-cookiecutter-uv.git
+cookiecutter git@github.com:communitiesuk/python-cookiecutter-uv.git
 ```
 
 Follow the onscreen prompts to set your project name which will be slugified for the repo name and package name within the repo.
