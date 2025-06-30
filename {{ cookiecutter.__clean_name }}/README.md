@@ -111,3 +111,7 @@ If you want to test across specific operating systems and Python versions, amend
 {% if cookiecutter.include_nox == 'y' %}
 - `~/noxfile.py`: line 14
 {%- endif %}
+
+---
+
+Repository initiated with [communitiesuk/python-cookiecutter-uv](https://github.com/communitiesuk/python-cookiecutter-uv).
