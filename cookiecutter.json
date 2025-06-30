@@ -1,14 +1,69 @@
 {
   "author_name": "Your Name",
-  "author_email": "your.name@communities.gov.uk",
-  "project_name": "your-project-name",
-  "project_slug": "{{ cookiecutter.project_name|lower|replace(' ', '_')|replace('-', '_') }}",
-  "project_description": "Provide a short description about the project.",
-  "git_upstream": "https://github.com/communitiesuk | https://github.com/your-user-profile",
-  "git_url": "{{cookiecutter.git_upstream}}/{{cookiecutter.project_slug}}",
-  "include_unit_testing": [
-    "y",
-    "n"
+  "author_email": "{{cookiecutter.author_name|lower|replace(' ', '.')}}@communities.gov.uk",
+  "github_username": "github_username",
+  "project_name": "project-name",
+  "project_description": "A brief description of your project.",
+  "project_slug": "{{cookiecutter.project_name|slugify(separator='_')}}",
+  "repository_name": "{{cookiecutter.project_name|slugify(separator='-')}}",
+  "repository_home": [
+    "communitiesuk",
+    "{{cookiecutter.github_username}}"
   ],
-  "target_operating_systems": "ubuntu-latest, macos-latest, windows-latest"
+  "__clean_name": "{{cookiecutter.project_name|slugify(separator='-')}}",
+  "__clean_slug": "{{cookiecutter.project_slug|slugify(separator='_')}}",
+  "use_ubuntu": "y",
+  "use_macos": "y",
+  "use_windows": "y",
+  "license": [
+    "MIT license",
+    "BSD license",
+    "ISC license",
+    "Mozilla Public License v2.0",
+    "Apache Software License v2.0",
+    "GNU GPL v3"
+  ],
+  "development_status": [
+    "Development Status :: 1 - Planning",
+    "Development Status :: 2 - Pre-Alpha",
+    "Development Status :: 3 - Alpha",
+    "Development Status :: 4 - Beta",
+    "Development Status :: 5 - Production/Stable",
+    "Development Status :: 6 - Mature",
+    "Development Status :: 7 - Inactive"
+  ],
+  "typechecker": [
+    "mypy",
+    "ty"
+  ],
+  "include_unit_testing": "n",
+  "include_docs": "n",
+  "include_nox": "n",
+  "include_changelog": "n",
+  "_extensions": [
+    "cookiecutter.extensions.SlugifyExtension",
+    "jinja2.ext.do"
+  ],
+  "__prompts__": {
+    "author_name": "Author's name",
+    "author_email": "Author's email",
+    "github_username": "Author's github username",
+    "project_name": "Name of your project",
+    "project_description": "Project description",
+    "project_slug": "Slug for your project (used in URLs and package names)",
+    "repository_name": "Repository name (used in GitHub and other VCS)",
+    "repository_home": "Repository home (communitiesuk or your GitHub username)",
+    "use_ubuntu": "Include Ubuntu in CI tests? (y = yes, n = no)",
+    "use_macos": "Include macOS in CI tests? (y = yes, n = no)",
+    "use_windows": "Include Windows in CI tests? (y = yes, n = no)",
+    "git_url": "Where your project should be hosted on GitHub",
+    "version": "Version of your project (e.g., 0.0.1)",
+    "license": "License for the project",
+    "development_status": "Development status of the project",
+    "typechecker": "Typechecker to use",
+    "include_unit_testing": "Include unit testing? (y = yes, n = no)",
+    "include_docs": "Include documentation support? (y = yes, n = no)",
+    "include_nox": "Include Nox for environment testing? (y = yes, n = no)",
+    "include_changelog": "Include a changelog? (y = yes, n = no)"
+  }
 }
