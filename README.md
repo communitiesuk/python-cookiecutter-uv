@@ -4,10 +4,6 @@ Basic Python template using [`cookiecutter`](https://github.com/cookiecutter/coo
 
 Objective: make it simpler to set up new Python projects with commonly used developer tooling.
 
-This *should* be platform agnostic and work in DAP.
-
-There are step-by-step installation instructions for [macOS/Linux](https://github.com/communitiesuk/python-cookiecutter-uv/blob/main/docs/unix.md) and [Windows](https://github.com/communitiesuk/python-cookiecutter-uv/blob/main/docs/windows.md) machines.
-
 If you have any issues *and/or* suggestions please contact <jordan.pinder@communities.gov.uk>.
 
 ---
@@ -66,7 +62,7 @@ pre-commit --version
 
 ### Step 2: Configure git
 
-Here we'll configure global credential and a SSH key.
+Configure global credentials and a SSH key.
 
 Add your credentials:
 
@@ -78,7 +74,7 @@ git config --global user.email "Joe.Bloggs@communities.gov.uk"
 Generate a SSH key with a passphrase:
 
 ```bash
-ssh-keygen -t ed25519 -C "your_email@example.com"
+ssh-keygen -t ed25519 -C "Joe.Bloggs@communities.gov.uk"
 
 ```
 
@@ -86,10 +82,9 @@ Start the ssh-agent:
 
 ```bash
 eval "$(ssh-agent -s)"
-
 ```
 
-Depending on your environment, you may need to use a different command. For example, you may need to use root access by running sudo -s -H before starting the ssh-agent, or you may need to use exec ssh-agent bash or exec ssh-agent zsh to run the ssh-agent.
+Depending on your environment, you may need to use a different command. For example, you may need to use root access by running `sudo -s -H` before starting the ssh-agent, or you may need to use `exec ssh-agent bash` or `exec ssh-agent zsh` to run the ssh-agent.
 
 We need to modify the ~/.ssh/config file. Open it with:
 
@@ -154,12 +149,12 @@ On your local machine, navigate to the directory in which you want to create a p
 uvx cookiecutter git@github.com:communitiesuk/python-cookiecutter-uv.git
 ```
 
-Follow the onscreen prompts to set your project. This will:
+Follow the onscreen prompts to create your project. This will:
 
 - generate basic information about your project (e.g. author name & email, project URLs)
 - prompts for including features (e.g. choosing type hinter, unit testing, include documentation page, target operating system)
 - install Python dependencies using the `Makefile`
-- configure your initial GitHub repository
+- configure your initial GitHub repository with initial commits
 
 ***Note***: we use a [flat layout](https://packaging.python.org/en/latest/discussions/src-layout-vs-flat-layout/) by default.
 
