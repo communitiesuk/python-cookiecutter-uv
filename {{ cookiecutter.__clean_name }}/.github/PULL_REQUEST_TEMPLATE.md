@@ -1,3 +1,11 @@
+# Title
+
+- Prefix your name with what type of change you're making. Supported Types: _feat, fix, docs, style, refactor, perf, test, build, ci, revert, deps_.
+
+- Make your title succinct and descriptive.
+
+- (Good Example) feat: Server analytics monitor added
+
 ## What
 
 Describe what you have changed and why.

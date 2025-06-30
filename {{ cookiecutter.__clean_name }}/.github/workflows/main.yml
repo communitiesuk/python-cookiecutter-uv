@@ -1,3 +1,9 @@
+{#- This is the new, dynamic way to build the OS list -#}
+{%- set os_list = [] -%}
+{%- if cookiecutter.use_ubuntu == 'y' -%}{%- do os_list.append('ubuntu-latest') -%}{%- endif -%}
+{%- if cookiecutter.use_macos == 'y' -%}{%- do os_list.append('macos-latest') -%}{%- endif -%}
+{%- if cookiecutter.use_windows == 'y' -%}{%- do os_list.append('windows-latest') -%}{%- endif -%}
+
 name: Main
 
 on:
@@ -11,7 +17,7 @@ jobs:
     strategy:
       matrix:
         python-version: ["3.12", "3.13"]
-        os: [{% for os in cookiecutter.target_operating_systems.split(',') %}"{{ os.strip() }}"{% if not loop.last %}, {% endif %}{% endfor %}]
+        os: [{{ os_list | map('tojson') | join(', ') }}]
 
     runs-on: ${{ '{{ matrix.os }}' }}
 
@@ -36,11 +42,11 @@ jobs:
       - name: Install nox
         run: uv pip install nox
         shell: bash
-
+{% if cookiecutter.include_nox == 'y' %}
       - name: Run nox
         run: nox --pythons ${{ '{{ matrix.python-version }}' }}
         shell: bash
-
+{% endif %}
 {% if cookiecutter.include_unit_testing == "y" %}
       - name: Run tests
         run: uv run python -m pytest tests --cov --cov-config=pyproject.toml --cov-report=xml

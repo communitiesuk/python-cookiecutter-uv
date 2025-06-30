@@ -20,12 +20,12 @@ repos:
         args: [ "--maxkb=5120" ]
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: "v0.11.5"
+    rev: "v0.11.13"
     hooks:
-      - id: ruff
-        args: [--exit-non-zero-on-fix]
+      - id: ruff-check
+        args: [--fix, --exit-non-zero-on-fix]
       - id: ruff-format
-
+{% if cookiecutter.typechecker == 'mypy' %}
   - repo: https://github.com/pre-commit/mirrors-mypy
     rev: v1.3.0
     hooks:
@@ -35,6 +35,7 @@ repos:
           [
             --config-file=.github/linters/.mypy.ini,
           ]
+{%- endif %}
 
   - repo: https://github.com/Yelp/detect-secrets
     rev: v1.4.0
