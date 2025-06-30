@@ -39,10 +39,10 @@ jobs:
       - name: Run pre-commit
         run: uv run pre-commit run -a --show-diff-on-failure
 
+{% if cookiecutter.include_nox == 'y' %}
       - name: Install nox
         run: uv pip install nox
         shell: bash
-{% if cookiecutter.include_nox == 'y' %}
       - name: Run nox
         run: nox --pythons ${{ '{{ matrix.python-version }}' }}
         shell: bash

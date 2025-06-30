@@ -137,11 +137,11 @@ def display_project_details() -> None:
         )
     print(f"License: {Colors.CYAN}{{cookiecutter.license}}{Colors.ENDC}")
     print(
-        f"Git Status: {Colors.CYAN}Repository initialized. You are on the 'main' branch.{Colors.ENDC}"
+        f"Git Status: {Colors.CYAN}Repository initialized. You are on the 'develop' branch.{Colors.ENDC}"
     )
     print(f"uv setup: {Colors.CYAN}Complete{Colors.ENDC}")
     print(
-        f"\n{Colors.PURPLE}--- Next steps ---{Colors.ENDC}"
+        f"\n{Colors.PURPLE}--- Next steps ---{Colors.ENDC}\n"
     )
     print("  - Amend to your preferences")
     print("  - Setup branch protection rules")
