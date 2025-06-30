@@ -28,13 +28,13 @@ It also includes pull request and issue templates.
 
 ## Installation
 
-Assumes you're using a Unix-like system such as a developer Macbook or Linux machine (although there is an [archived Windows installation guide]()).
+Assumes you're using a Unix-like system such as a developer Macbook or Linux machine, although there is an [archived Windows installation guide](https://github.com.mcas.ms/communitiesuk/python-cookiecutter-uv/blob/f32daaf05c2f35e1060d18795bf17ff3c9580577/docs/windows.md) which can be revived if needed.
 
 ### Step 1: Install tools
 
 The following tools are used:
 
-- [`brew`](https://brew.sh/): command-line tool for installing applications.
+- [`brew`](https://brew.sh/)
 - `uv`
 - `pre-commit`
 
