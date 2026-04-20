@@ -1,7 +1,7 @@
 import nox
 
 # Global options
-nox.options.sessions = ("ruff", "mypy", "bandit")
+nox.options.sessions = ("ruff", "{{ cookiecutter.typechecker }}", "bandit")
 nox.options.reuse_existing_virtualenvs = True
 nox.options.default_venv_backend = "uv|virtualenv"
 
@@ -24,13 +24,28 @@ def ruff(session: nox.Session) -> None:
     _run(session, "ruff", "check", *args)
     _run_code_modifier(session, "ruff", "format", *args)
 
-
+{% if cookiecutter.typechecker == 'mypy' %}
 @nox.session(python=PYTHON_VERSIONS, tags=["typecheck"])
 def mypy(session: nox.Session) -> None:
     """Verify types using mypy."""
     args = session.posargs or (PACKAGE_LOCATION,)
     _install(session, "mypy", "types-requests", "typing-extensions")
     _run(session, "mypy", *args)
+{%- elif cookiecutter.typechecker == 'ty' %}
+@nox.session(python=PYTHON_VERSIONS, tags=["typecheck"])
+def ty(session: nox.Session) -> None:
+    """Verify types using ty."""
+    args = session.posargs or (PACKAGE_LOCATION,)
+    _install(session, "ty")
+    _run(session, "ty", "check", *args)
+{%- elif cookiecutter.typechecker == 'pyrefly' %}
+@nox.session(python=PYTHON_VERSIONS, tags=["typecheck"])
+def pyrefly(session: nox.Session) -> None:
+    """Verify types using pyrefly."""
+    args = session.posargs or (PACKAGE_LOCATION,)
+    _install(session, "pyrefly")
+    _run(session, "pyrefly", "check", *args)
+{%- endif %}
 
 
 @nox.session(python=PYTHON_VERSIONS, tags=["security"])

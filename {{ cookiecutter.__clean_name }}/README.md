@@ -11,7 +11,7 @@ This project uses:
 - [`uv`](https://docs.astral.sh/uv/) for Python package and dependency management.
 - [`pre-commit`](https://pre-commit.com/) ensuring code quality & consistency, prevent commits of sensitive information (e.g. secrets).
 - [`ruff`](https://docs.astral.sh/ruff/) for linting and formatting.
-- {% if cookiecutter.typechecker == 'ty' %}[`ty`](https://github.com/astral-sh/ty){% else %}[`mypy`](https://www.mypy-lang.org/){%- endif %} for typechecking.
+- {% if cookiecutter.typechecker == 'ty' %}[`ty`](https://github.com/astral-sh/ty){% elif cookiecutter.typechecker == 'pyrefly' %}[`pyrefly`](https://pyrefly.org/){% else %}[`mypy`](https://www.mypy-lang.org/){%- endif %} for typechecking.
 {% if cookiecutter.include_nox == 'y' %}
 - [`nox`](https://nox.thea.codes/en/stable/) for automated code quality checks in multiple Python environments.
 {%- endif %}

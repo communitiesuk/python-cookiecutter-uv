@@ -37,12 +37,10 @@ check: ## Run code quality tools.
 	@uv lock --locked
 	@echo "$(BLUE) > Linting code with pre-commit...$(ENDC)"
 	@uvx pre-commit run -a
-	@echo "$(BLUE) > Static type checking...$(ENDC)"
-	{%- if cookiecutter.typechecker == 'ty' %}
-	@uvx ty
-	{% else %}
-	@uvx mypy {{cookiecutter.__clean_slug}}
-	{%- endif %}
+	@echo "$(BLUE) > Sorting dependencies with uv-sort...$(ENDC)"
+	@uvx uv-sort
+	@echo "$(BLUE) > Running noxfile...$(ENDC)"
+	@uvx nox
 	@echo "$(GREEN)✅ All checks passed!$(ENDC)"
 
 {% if cookiecutter.include_unit_testing == 'y' -%}

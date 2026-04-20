@@ -25,8 +25,10 @@ dependencies = []
 dev = [
     {%- if cookiecutter.typechecker == 'ty' %}
     "ty>=0.0.1a11",
-    {% else %}
-    "mypy >=1.16.1",
+    {%- elif cookiecutter.typechecker == 'pyrefly' %}
+    "pyrefly>=0.61.0",
+    {%- else %}
+    "mypy>=1.16.1",
     {%- endif %}
     {%- if cookiecutter.include_unit_testing == 'y' %}
     "pytest>=7.2.0",
@@ -43,6 +45,7 @@ dev = [
     {%- endif %}
     "pre-commit>=4.2.0",
     "ruff>=0.12.0",
+    "uv-sort>=0.6.1",
 ]
 
 [project.urls]
@@ -64,9 +67,12 @@ packages = ["{{cookiecutter.__clean_slug}}"]
 
 {% if cookiecutter.typechecker == 'ty' %}
 [tool.ty]
-src.root = "./src"
 environment.python = "./.venv"
 terminal.output-format = "concise"
+{%- elif cookiecutter.typechecker == 'pyrefly' %}
+[tool.pyrefly]
+project-includes = ["{{cookiecutter.__clean_slug}}"]
+python-version = "3.12"
 {%- else %}
 [tool.mypy]
 files = ["{{cookiecutter.__clean_slug}}",{% if cookiecutter.include_unit_testing == 'y' %} "tests"{%- endif %}]
