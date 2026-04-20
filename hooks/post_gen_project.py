@@ -115,8 +115,7 @@ def prune_unwanted_files() -> None:
         remove("noxfile.py")
     if "{{cookiecutter.include_changelog}}" != "y":
         remove("CHANGELOG.md")
-    if "{{cookiecutter.typechecker}}" != "mypy":
-        remove(".github/linters")
+    remove(".github/linters")
 
 
 def display_project_details() -> None:
