@@ -13,7 +13,7 @@ If you have any issues *and/or* suggestions please contact <jordan.pinder@commun
 - [`uv`](https://docs.astral.sh/uv/) for Python package and dependency management.
 - [`pre-commit`](https://pre-commit.com/) ensuring code quality & consistency, prevent commits of sensitive information (e.g. secrets).
 - [`ruff`](https://docs.astral.sh/ruff/) for linting and formatting.
-- [`ty`](https://github.com/astral-sh/ty) or [`mypy`](https://mypy.readthedocs.io/en/stable/#) for checking type hints.
+- [`ty`](https://github.com/astral-sh/ty), [`pyrefly`](https://pyrefly.org/) or [`mypy`](https://mypy.readthedocs.io/en/stable/#) for checking type hints.
 - [`nox`](https://nox.thea.codes/en/stable/) for automated code quality checks in multiple Python environments.
 - [`pytest`](https://docs.pytest.org/) for running unit tests.
 - [GitHub Actions](https://github.com/features/actions) for CI workflows.
