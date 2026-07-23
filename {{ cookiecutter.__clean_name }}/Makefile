@@ -2,13 +2,16 @@
 # VARIABLES
 # ==================================================================================== #
 
+# Makefile Colors
 PURPLE := \033[95m
 BLUE := \033[94m
+CYAN := \033[96m
 GREEN := \033[92m
 ORANGE := \033[93m
 RED := \033[91m
 ENDC := \033[0m
 BOLD := \033[1m
+UNDERLINE := \033[4m
 
 # ==================================================================================== #
 # MAKEFILE TARGETS
@@ -46,20 +49,26 @@ test: ## Test the code with pytest
 .PHONY: build
 build: clean-build ## Build wheel file
 	@echo "$(PURPLE)--- Building Project ---$(ENDC)"
+	@echo "$(BLUE) > Creating wheel file...$(ENDC)"
 	@uv build --wheel
-	@echo "$(GREEN)Build successful!$(ENDC)"
+	@echo "$(GREEN)Build successful! Find the wheel in the 'dist' directory.$(ENDC)"
 
 .PHONY: clean-build
 clean-build: ## Clean build artifacts
+	@echo "$(ORANGE)--- Cleaning Build Artifacts ---$(ENDC)"
 	@rm -rf dist
+	@echo "$(GREEN)'dist' directory removed.$(ENDC)"
 
 .PHONY: docs
 docs: ## Build and serve the documentation
+	@echo "$(PURPLE)--- Serving Documentation ---$(ENDC)"
 	@uv run mkdocs serve
 
 .PHONY: docs-test
 docs-test: ## Test if documentation can be built without warnings or errors
+	@echo "$(PURPLE)--- Testing Documentation Build ---$(ENDC)"
 	@uv run mkdocs build -s
+	@echo "$(GREEN)Documentation builds successfully!$(ENDC)"
 
 .PHONY: help
 help: ## Display this help message
