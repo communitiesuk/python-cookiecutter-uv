@@ -8,55 +8,47 @@ authors = [
 readme = "README.md"
 license = { file = "LICENCE" }
 keywords = ["python"]
-requires-python = ">=3.12,<3.14"
+requires-python = ">=3.12,<4.0"
 classifiers = [
     "{{cookiecutter.development_status}}",
+    "Intended Audience :: Developers",
     "Programming Language :: Python",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
     "Topic :: Software Development :: Libraries :: Python Modules",
     "Typing :: Typed",
 ]
 
 dependencies = []
 
+[project.urls]
+Homepage = "https://{{cookiecutter.repository_home}}.github.io/{{cookiecutter.repository_name}}"
+Repository = "https://github.com/{{cookiecutter.repository_home}}/{{cookiecutter.repository_name}}"
+Documentation = "https://{{cookiecutter.repository_home}}.github.io/{{cookiecutter.repository_name}}"
+Issues = "https://github.com/{{cookiecutter.repository_home}}/{{cookiecutter.repository_name}}/issues"
+
 [dependency-groups]
 dev = [
-    {%- if cookiecutter.typechecker == 'ty' %}
-    "ty>=0.0.1a11",
+    "pytest>=9.0.2",
+    {%- if cookiecutter.codecov == 'y' %}
+    "pytest-cov>=7.0.0",
+    {%- endif %}
+    "pre-commit>=4.5.1",
+    "tox-uv>=1.33.4",
+    "ruff>=0.15.7",
+    "mkdocs>=1.6.1",
+    "mkdocs-material>=9.7.6",
+    "mkdocstrings[python]>=1.0.3",
+    {%- if cookiecutter.typechecker == 'mypy' %}
+    "mypy>=1.19.1",
+    {%- elif cookiecutter.typechecker == 'ty' %}
+    "ty>=0.0.24",
     {%- elif cookiecutter.typechecker == 'pyrefly' %}
     "pyrefly>=0.61.0",
-    {%- else %}
-    "mypy>=1.16.1",
     {%- endif %}
-    {%- if cookiecutter.include_unit_testing == 'y' %}
-    "pytest>=7.2.0",
-    "pytest-cov>=4.0.0",
-    "coverage>=7.8.2",
-    {%- endif %}
-    {%- if cookiecutter.include_docs == 'y' %}
-    "portray>=1.8.0",
-    "legacy-cgi>=2.6.3",
-    "setuptools>=80.9.0",
-    {%- endif %}
-    {%- if cookiecutter.include_nox == 'y' %}
-    "nox>=2025.5.1",
-    {%- endif %}
-    "pre-commit>=4.2.0",
-    "ruff>=0.12.0",
-    "uv-sort>=0.6.1",
 ]
-
-[project.urls]
-homepage = "https://github.com/{{cookiecutter.repository_home}}/{{cookiecutter.repository_name}}"
-repository = "https://github.com/{{cookiecutter.repository_home}}/{{cookiecutter.repository_name}}.git"
-{%- if cookiecutter.include_docs == 'y' %}
-documentation = "https://github.com/{{cookiecutter.repository_home}}.github.io/{{cookiecutter.repository_name}}"
-{%- else %}
-documentation = "https://github.com/{{cookiecutter.repository_home}}/{{cookiecutter.repository_name}}"
-{%- endif %}
-issues = "https://github.com/{{cookiecutter.repository_home}}/{{cookiecutter.repository_name}}/issues"
 
 [build-system]
 requires = ["hatchling"]
@@ -65,73 +57,65 @@ build-backend = "hatchling.build"
 [tool.hatch.build.targets.wheel]
 packages = ["{{cookiecutter.__clean_slug}}"]
 
-{% if cookiecutter.typechecker == 'ty' %}
+{% if cookiecutter.typechecker == 'mypy' -%}
+[tool.mypy]
+files = ["{{cookiecutter.__clean_slug}}"]
+disallow_untyped_defs = true
+no_implicit_optional = true
+check_untyped_defs = true
+warn_return_any = true
+warn_unused_ignores = true
+show_error_codes = true
+{%- elif cookiecutter.typechecker == 'ty' -%}
 [tool.ty]
 environment.python = "./.venv"
 terminal.output-format = "concise"
-{%- elif cookiecutter.typechecker == 'pyrefly' %}
+{%- elif cookiecutter.typechecker == 'pyrefly' -%}
 [tool.pyrefly]
 project-includes = ["{{cookiecutter.__clean_slug}}"]
 python-version = "3.12"
-{%- else %}
-[tool.mypy]
-files = ["{{cookiecutter.__clean_slug}}",{% if cookiecutter.include_unit_testing == 'y' %} "tests"{%- endif %}]
-{% if cookiecutter.include_nox == 'y' %}
-exclude = "noxfile.py"
-{%- endif %}
-ignore_missing_imports = true
-disallow_untyped_defs = true
-disallow_any_unimported = false
-no_implicit_optional = true
-check_untyped_defs = true
-warn_return_any = false
-warn_unused_ignores = true
-show_error_codes = true
 {%- endif %}
 
-[tool.ruff]
-src = ["{{cookiecutter.__clean_slug}}",{% if cookiecutter.include_unit_testing == 'y' %} "tests"{%- endif %}]
-line-length = 100
-indent-width = 4
-
-[tool.ruff.lint]
-pydocstyle.convention = "google"
-fixable = ["ALL"]
-select = ["ALL"]
-ignore = [
-    "FA102",   # Flake8-future-annotations
-    "F401",    # Disable fix for unused imports
-    "B904",    # Allow raising exceptions without from e
-    "PLR0913", # too many arguments
-    "CPY",     # Flake8-copyright
-    "T201",    # Debugging print statements
-    "ERA",     # Eradicate – detects commented-out code
-    "BLE001",  # Catch-all exceptions
-    "D100",    # missing docstring in public module
-    "D105",    # undocumented magic method
-    "D107",    # undocumented public init
-    "D203",    # incorrect-blank-line-before-class
-    "D205",    # line-between-summary-and-description
-    "D212",    # multi-line-summary-first-line
-    "D400",    # missing-trailing-period
-    "D407",    # missing-dashed-underline-after-section
-    "S311",    # rand-usage
-]
-
-{% if cookiecutter.include_unit_testing == "y" -%}
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-python_files = "test_*.py"
-python_functions = "test_*"
 
-[tool.coverage.paths]
-source = ["{{cookiecutter.__clean_slug}}"]
-tests = ["tests", "*/tests"]
+[tool.ruff]
+target-version = "py312"
+line-length = 120
+fix = true
 
+[tool.ruff.lint]
+select = [
+    "YTT",
+    "S",
+    "B",
+    "A",
+    "C4",
+    "T10",
+    "SIM",
+    "I",
+    "C90",
+    "E", "W",
+    "F",
+    "PGH",
+    "UP",
+    "RUF",
+    "TRY",
+]
+ignore = [
+    "E501",
+    "E731",
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["S101"]
+
+[tool.ruff.format]
+preview = true
+
+{% if cookiecutter.codecov == "y" -%}
 [tool.coverage.report]
 skip_empty = true
-show_missing = true
-fail_under = 100
 
 [tool.coverage.run]
 branch = true
