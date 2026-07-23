@@ -1,0 +1,47 @@
+site_name: python-cookiecutter-uv
+site_description: A Python cookiecutter template using uv for dependency management.
+site_url: https://communitiesuk.github.io/python-cookiecutter-uv
+repo_url: https://github.com/communitiesuk/python-cookiecutter-uv
+repo_name: communitiesuk/python-cookiecutter-uv
+
+theme:
+  name: material
+  palette:
+    - scheme: default
+      primary: teal
+      accent: amber
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: teal
+      accent: amber
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - search.suggest
+    - content.code.copy
+
+nav:
+  - Home: index.md
+  - Features: features.md
+  - Tutorial: tutorial.md
+
+plugins:
+  - search
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.tabbed:
+      alternate_style: true
+  - attr_list
+  - toc:
+      permalink: true
