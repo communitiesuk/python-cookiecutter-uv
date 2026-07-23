@@ -1,0 +1,57 @@
+site_name: {{cookiecutter.repository_name}}
+site_description: {{cookiecutter.project_description}}
+site_url: https://{{cookiecutter.repository_home}}.github.io/{{cookiecutter.repository_name}}
+repo_url: https://github.com/{{cookiecutter.repository_home}}/{{cookiecutter.repository_name}}
+repo_name: {{cookiecutter.repository_home}}/{{cookiecutter.repository_name}}
+
+theme:
+  name: material
+  palette:
+    - scheme: default
+      primary: teal
+      accent: amber
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: teal
+      accent: amber
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - search.suggest
+    - content.code.copy
+
+nav:
+  - Home: index.md
+  - Modules: modules.md
+
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          paths: ["{{cookiecutter.__clean_slug}}"]
+          options:
+            show_source: true
+            show_root_heading: true
+            members_order: source
+            docstring_style: google
+            merge_init_into_class: true
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.tabbed:
+      alternate_style: true
+  - attr_list
+  - md_in_html
+  - toc:
+      permalink: true
