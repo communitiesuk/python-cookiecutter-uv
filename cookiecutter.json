@@ -3,7 +3,6 @@
   "author_email": "{{cookiecutter.author_name|lower|replace(' ', '.')}}@communities.gov.uk",
   "github_username": "github_username",
   "project_name": "project-name",
-  "project_description": "A brief description of your project.",
   "project_slug": "{{cookiecutter.project_name|slugify(separator='_')}}",
   "repository_name": "{{cookiecutter.project_name|slugify(separator='-')}}",
   "repository_home": [
@@ -12,16 +11,18 @@
   ],
   "__clean_name": "{{cookiecutter.project_name|slugify(separator='-')}}",
   "__clean_slug": "{{cookiecutter.project_slug|slugify(separator='_')}}",
+  "project_description": "A brief description of your project.",
   "use_ubuntu": "y",
   "use_macos": "y",
   "use_windows": "y",
   "license": [
+    "OGL-UK-3.0",
     "MIT license",
     "BSD license",
     "ISC license",
-    "Mozilla Public License v2.0",
-    "Apache Software License v2.0",
-    "GNU GPL v3"
+    "MPL-2.0",
+    "Apache-2.0",
+    "GPL-3.0"
   ],
   "development_status": [
     "Development Status :: 1 - Planning",
@@ -37,10 +38,18 @@
     "ty",
     "pyrefly"
   ],
-  "include_unit_testing": "n",
-  "include_docs": "n",
-  "include_nox": "n",
-  "include_changelog": "n",
+  "codecov": [
+    "y",
+    "n"
+  ],
+  "publish_to_pypi": [
+    "y",
+    "n"
+  ],
+  "include_changelog": [
+    "y",
+    "n"
+  ],
   "_extensions": [
     "cookiecutter.extensions.SlugifyExtension",
     "jinja2.ext.do"
@@ -48,21 +57,18 @@
   "__prompts__": {
     "author_name": "Author's name",
     "author_email": "Author's email",
-    "github_username": "Author's github username",
+    "github_username": "Author's GitHub username",
     "project_name": "Name of your project",
     "project_description": "Project description",
-    "project_slug": "Slug for your project (used in URLs and package names)",
-    "repository_name": "Repository name (used in GitHub and other VCS)",
     "repository_home": "Repository home (communitiesuk or your GitHub username)",
-    "use_ubuntu": "Include Ubuntu in CI tests? (y = yes, n = no)",
-    "use_macos": "Include macOS in CI tests? (y = yes, n = no)",
-    "use_windows": "Include Windows in CI tests? (y = yes, n = no)",
+    "use_ubuntu": "Include Ubuntu in CI tests? (y/n)",
+    "use_macos": "Include macOS in CI tests? (y/n)",
+    "use_windows": "Include Windows in CI tests? (y/n)",
     "license": "License for the project",
     "development_status": "Development status of the project",
-    "typechecker": "Typechecker to use",
-    "include_unit_testing": "Include unit testing? (y = yes, n = no)",
-    "include_docs": "Include documentation support? (y = yes, n = no)",
-    "include_nox": "Include Nox for environment testing? (y = yes, n = no)",
-    "include_changelog": "Include a changelog? (y = yes, n = no)"
+    "typechecker": "Type checker to use",
+    "codecov": "Include Codecov integration? (y/n)",
+    "publish_to_pypi": "Include PyPI publish workflow? (y/n)",
+    "include_changelog": "Include a changelog? (y/n)"
   }
 }
