@@ -28,7 +28,13 @@ Or if you do not have `uv` installed:
 ```bash
 pip install cookiecutter
 cookiecutter https://github.com/communitiesuk/python-cookiecutter-uv.git
+```
 
+Or clone and use `cookiecutter` locally:
+
+```bash
+git clone https://github.com/communitiesuk/python-cookiecutter-uv.git
+cookiecutter python-cookiecutter-uv
 ```
 
 ## Documentation

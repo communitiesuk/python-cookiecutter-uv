@@ -17,13 +17,19 @@ This template generates a Python project with:
 ## Quick Start
 
 ```bash
-uvx cookiecutter gh:communitiesuk/python-cookiecutter-uv
+uvx cookiecutter https://github.com/communitiesuk/python-cookiecutter-uv.git
 ```
 
-Or clone and bake locally:
+Or if you do not have `uv` installed:
+
+```bash
+pip install cookiecutter
+cookiecutter https://github.com/communitiesuk/python-cookiecutter-uv.git
+```
+
+Or clone and use `cookiecutter` locally:
 
 ```bash
 git clone https://github.com/communitiesuk/python-cookiecutter-uv.git
-cd python-cookiecutter-uv
-make bake-with-inputs
+cookiecutter python-cookiecutter-uv
 ```

@@ -4,29 +4,44 @@ This page contains a complete tutorial on how to create your project.
 
 ## Step 1: Install uv
 
-To start, we will need to install `uv`. The instructions to install uv can be found
+To start, we will need to install `uv`. The instructions to install `uv` can be found
 [here](https://docs.astral.sh/uv/#getting-started). For macOS or Linux:
 
 ```bash
 curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
 
-## Step 2: Generate your project
+## Step 2: Set up your GitHub repository
+
+Create an empty [new repository](https://github.com/new) on GitHub. Give
+it a name that only contains alphanumeric characters and optionally `-`.
+**DO NOT** check any boxes under the option `Initialise this repository with`.
+
+## Step 3: Generate your project
 
 On your local machine, navigate to the directory in which you want to
 create a project directory, and run the following command:
 
 ```bash
-uvx cookiecutter gh:communitiesuk/python-cookiecutter-uv
+uvx cookiecutter https://github.com/communitiesuk/python-cookiecutter-uv.git
 ```
 
-Follow the prompts to configure your project. For an explanation of the prompt arguments, see [Features](features.md#configurable-options).
+Or if you do not have `uv` installed:
 
-## Step 3: Set up your GitHub repository
+```bash
+pip install cookiecutter
+cookiecutter https://github.com/communitiesuk/python-cookiecutter-uv.git
+```
 
-Create an empty [new repository](https://github.com/new) on GitHub. Give
-it a name that only contains alphanumeric characters and optionally `-`.
-**DO NOT** check any boxes under the option `Initialize this repository with`.
+Or clone and use `cookiecutter` locally:
+
+```bash
+git clone https://github.com/communitiesuk/python-cookiecutter-uv.git
+cookiecutter python-cookiecutter-uv
+```
+
+Follow the prompts to configure your project. For an explanation of the prompt arguments,
+see [Features](features.md#configurable-options).
 
 ## Step 4: Upload your project to GitHub
 
@@ -107,7 +122,7 @@ To trigger a release (and publish to PyPI if enabled):
 
 This will trigger the release workflow which updates the version in `pyproject.toml`, builds the wheel, and publishes to PyPI.
 
-## Step 12: You're all set!
+## Step 12: You're all set
 
 Your documentation should now be live at `https://<repository_home>.github.io/<project-name>/`.
 
