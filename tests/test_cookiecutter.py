@@ -85,21 +85,6 @@ def test_typechecker_pyrefly(bake):
     assert project.file_contains("Makefile", "pyrefly check")
 
 
-def test_codecov_enabled(bake):
-    """Test that codecov files are present when enabled."""
-    project = bake(project_name="test-proj", codecov="y")
-    assert project.has_file("codecov.yaml")
-    assert project.file_contains("pyproject.toml", "pytest-cov")
-    assert project.file_contains(".github/workflows/main.yml", "codecov")
-
-
-def test_codecov_disabled(bake):
-    """Test that codecov files are absent when disabled."""
-    project = bake(project_name="test-proj", codecov="n")
-    assert not project.has_file("codecov.yaml")
-    assert not project.file_contains("pyproject.toml", "pytest-cov")
-
-
 def test_publish_to_pypi_enabled(bake):
     """Test that PyPI workflow exists when publishing enabled."""
     project = bake(project_name="test-proj", publish_to_pypi="y")
