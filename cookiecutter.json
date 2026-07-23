@@ -38,10 +38,6 @@
     "ty",
     "pyrefly"
   ],
-  "codecov": [
-    "y",
-    "n"
-  ],
   "publish_to_pypi": [
     "y",
     "n"
@@ -67,7 +63,6 @@
     "license": "License for the project",
     "development_status": "Development status of the project",
     "typechecker": "Type checker to use",
-    "codecov": "Include Codecov integration? (y/n)",
     "publish_to_pypi": "Include PyPI publish workflow? (y/n)",
     "include_changelog": "Include a changelog? (y/n)"
   }

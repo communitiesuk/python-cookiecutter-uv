@@ -51,18 +51,10 @@ jobs:
           python-version: {% raw %}${{ matrix.python-version }}{% endraw %}
 
       - name: Run tests
-        run: uv run python -m pytest tests {% if cookiecutter.codecov == "y" %}--cov --cov-config=pyproject.toml --cov-report=xml{%- endif %}
+        run: uv run python -m pytest tests
 
       - name: Check typing
         run: uv run {% if cookiecutter.typechecker == "mypy" %}mypy{% elif cookiecutter.typechecker == "ty" %}ty check{% else %}pyrefly check{% endif %}
-
-{% if cookiecutter.codecov == "y" %}
-      - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v4
-        if: {% raw %}${{ matrix.python-version == '3.12' && matrix.os == 'ubuntu-latest' }}{% endraw %}
-        env:
-          {% raw %}CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}{% endraw %}
-{%- endif %}
 
   check-docs:
     runs-on: ubuntu-latest

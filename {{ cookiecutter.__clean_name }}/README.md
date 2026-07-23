@@ -2,9 +2,6 @@
 
 [![Build status](https://img.shields.io/github/actions/workflow/status/{{cookiecutter.repository_home}}/{{cookiecutter.repository_name}}/main.yml?branch=main)](https://github.com/{{cookiecutter.repository_home}}/{{cookiecutter.repository_name}}/actions/workflows/main.yml?query=branch%3Amain)
 [![License](https://img.shields.io/github/license/{{cookiecutter.repository_home}}/{{cookiecutter.repository_name}})](https://github.com/{{cookiecutter.repository_home}}/{{cookiecutter.repository_name}}/blob/main/LICENCE)
-{% if cookiecutter.codecov == "y" -%}
-[![codecov](https://codecov.io/gh/{{cookiecutter.repository_home}}/{{cookiecutter.repository_name}}/branch/main/graph/badge.svg)](https://codecov.io/gh/{{cookiecutter.repository_home}}/{{cookiecutter.repository_name}})
-{%- endif %}
 
 {{cookiecutter.project_description}}
 

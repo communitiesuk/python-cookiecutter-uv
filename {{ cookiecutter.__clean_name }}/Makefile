@@ -32,17 +32,15 @@ check: ## Run code quality tools
 	@uv run pre-commit run -a
 	@echo "$(BLUE) > Static type checking...$(ENDC)"
 	@uv run {% if cookiecutter.typechecker == "mypy" %}mypy{% elif cookiecutter.typechecker == "ty" %}ty check{% else %}pyrefly check{% endif %}
+	@echo "$(BLUE) > Checking for obsolete dependencies...$(ENDC)"
+	@uv run deptry .
 	@echo "$(GREEN)All checks passed!$(ENDC)"
 
 .PHONY: test
 test: ## Test the code with pytest
 	@echo "$(PURPLE)--- Running Tests ---$(ENDC)"
 	@echo "$(BLUE) > Running pytest...$(ENDC)"
-{% if cookiecutter.codecov == "y" %}
-	@uv run python -m pytest --cov --cov-config=pyproject.toml --cov-report=xml
-{% else %}
 	@uv run python -m pytest tests
-{% endif %}
 	@echo "$(GREEN)Tests finished!$(ENDC)"
 
 .PHONY: build

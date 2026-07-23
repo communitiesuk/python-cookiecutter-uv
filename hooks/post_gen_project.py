@@ -1,7 +1,6 @@
-"""Post-generation hook: remove files based on options, set up git and uv."""
+"""Post-generation hook: remove files based on cookiecutter options."""
 
 import shutil
-import subprocess
 from pathlib import Path
 
 
@@ -27,24 +26,8 @@ def remove(filepath: str) -> None:
         shutil.rmtree(path)
 
 
-def run_command(command: list[str], description: str) -> None:
-    """Run a command in the project directory."""
-    print(f"  > {description}...")
-    try:
-        subprocess.run(command, check=True, cwd=PROJECT_DIRECTORY, capture_output=True, text=True)
-    except subprocess.CalledProcessError as e:
-        print(f"  ERROR: {description} failed (exit {e.returncode})")
-        if e.stderr:
-            print(f"  {e.stderr.strip()}")
-        raise
-
-
 def prune_files() -> None:
     """Remove files based on cookiecutter options."""
-    # Codecov
-    if "{{ cookiecutter.codecov }}" != "y":
-        remove("codecov.yaml")
-
     # PyPI publishing
     if "{{ cookiecutter.publish_to_pypi }}" != "y":
         remove(".github/workflows/on-release-main.yml")
@@ -62,55 +45,26 @@ def prune_files() -> None:
             remove(licence_file)
 
 
-def setup_git() -> None:
-    """Initialize git repository."""
-    print("\n--- Setting up Git Repository ---")
-    run_command(["git", "init", "-b", "main"], "Initializing Git repository")
-    run_command(
-        ["git", "remote", "add", "origin",
-         "https://github.com/{{ cookiecutter.repository_home }}/{{ cookiecutter.repository_name }}.git"],
-        "Adding remote origin",
-    )
-    run_command(["git", "add", "."], "Staging all files")
-    run_command(["git", "commit", "-m", "Initial commit"], "Creating initial commit")
-
-
-def setup_environment() -> None:
-    """Install dependencies and create lockfile."""
-    print("\n--- Setting up Environment ---")
-    run_command(["make", "install"], "Installing dependencies and pre-commit hooks")
-
-
-def finalize_and_push() -> None:
-    """Commit lockfile and push branches."""
-    print("\n--- Pushing to Remote ---")
-    run_command(["git", "add", "."], "Staging lockfile and generated files")
-    run_command(["git", "commit", "-m", "feat: add lockfile and pre-commit config"], "Committing")
-    run_command(["git", "push", "-u", "origin", "main"], "Pushing main branch")
-    run_command(["git", "checkout", "-b", "develop"], "Creating develop branch")
-    run_command(["git", "push", "-u", "origin", "develop"], "Pushing develop branch")
-
-
 def display_summary() -> None:
-    """Show project summary."""
+    """Show next steps after project generation."""
     print("\n" + "=" * 60)
-    print("Project Setup Complete!")
+    print("Project generated successfully!")
     print("=" * 60)
     print(f"  Project: {{ cookiecutter.project_name }}")
     print(f"  Author:  {{ cookiecutter.author_name }} ({{ cookiecutter.author_email }})")
     print(f"  Path:    {PROJECT_DIRECTORY}")
-    print(f"  Repo:    https://github.com/{{ cookiecutter.repository_home }}/{{ cookiecutter.repository_name }}")
-    print(f"  Docs:    https://{{ cookiecutter.repository_home }}.github.io/{{ cookiecutter.repository_name }}")
-    print(f"  Branch:  develop (active)")
+    print(f"\nNext steps:")
+    print(f"  cd {PROJECT_DIRECTORY.name}")
+    print(f"  git init -b main")
+    print(f"  make install")
+    print(f"  git add .")
+    print(f"  git commit -m 'Initial commit'")
     print("=" * 60)
 
 
 if __name__ == "__main__":
     try:
         prune_files()
-        setup_git()
-        setup_environment()
-        finalize_and_push()
         display_summary()
     except Exception:
-        print("\nProject setup failed. Check the error messages above.")
+        print("\nProject generation failed. Check the error messages above.")
