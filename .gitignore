@@ -1,0 +1,39 @@
+# Byte-compiled
+__pycache__/
+*.py[cod]
+
+# Distribution
+dist/
+*.egg-info/
+
+# Virtual environments
+.venv/
+.tox/
+
+# Coverage
+.coverage
+coverage.xml
+htmlcov/
+
+# IDE
+.idea/
+.vscode/
+
+# Mac
+.DS_Store
+
+# mkdocs
+/site
+
+# mypy
+.mypy_cache/
+
+# ruff
+.ruff_cache/
+
+# Baked output (for local testing)
+/example-project/
+/project-name/
+
+# Superpowers scratch
+.superpowers/
