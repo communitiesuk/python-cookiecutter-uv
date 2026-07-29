@@ -10,6 +10,7 @@ This template generates a Python project with:
 - **tox-uv** for multi-Python-version testing (3.12, 3.13, 3.14)
 - **mkdocs** with Material theme for documentation on GitHub Pages
 - **ruff** for linting and formatting
+- **deptry** for detecting obsolete or missing dependencies
 - **pre-commit** with security hooks (detect-secrets, IP detection)
 - **GitHub Actions** CI/CD (quality, tests, docs deployment)
 - Type checking via **mypy**, **ty**, or **pyrefly** (your choice)
