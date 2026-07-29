@@ -14,7 +14,7 @@ on:
     types: [opened, synchronize, reopened, ready_for_review]
 
 jobs:
-  quality:
+  lint:
     runs-on: ubuntu-latest
     steps:
       - name: Check out
@@ -31,7 +31,7 @@ jobs:
       - name: Run checks
         run: make check
 
-  tests-and-type-check:
+  test:
     runs-on: {% raw %}${{ matrix.os }}{% endraw %}
     strategy:
       matrix:
