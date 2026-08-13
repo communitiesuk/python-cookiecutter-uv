@@ -12,6 +12,7 @@
 | pre-commit | Git hooks for code quality, file checks, and security |
 | GitHub Actions | CI pipeline with quality, test, and docs jobs |
 | Type checking | Choice of mypy, ty, or pyrefly |
+| Layout choice | Flat (package at root) or src (package under `src/`) layout |
 | PyPI publishing | Optional release-to-PyPI workflow |
 | PR and issue templates | GitHub templates for consistent pull requests and issue reporting |
 
@@ -38,6 +39,7 @@ The generated project includes the following pre-commit hooks:
 
 | Option | Default | Description |
 |--------|---------|-------------|
+| `layout` | flat | Package layout: flat (package at root) or src (package under `src/`) |
 | `typechecker` | mypy | Type checker: mypy, ty, or pyrefly |
 | `publish_to_pypi` | y | Include PyPI release workflow |
 | `use_ubuntu` | y | Test on Ubuntu in CI |

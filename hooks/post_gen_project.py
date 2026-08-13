@@ -35,6 +35,16 @@ def remove(filepath: str) -> None:
         shutil.rmtree(path)
 
 
+def apply_layout() -> None:
+    """Move the package into src/ when the src layout is selected."""
+    if "{{ cookiecutter.layout }}" != "src":
+        return
+    print(f"{BLUE} > Moving package into src/ (src layout selected){ENDC}")
+    src_dir = PROJECT_DIRECTORY / "src"
+    src_dir.mkdir()
+    (PROJECT_DIRECTORY / "{{ cookiecutter.__clean_slug }}").rename(src_dir / "{{ cookiecutter.__clean_slug }}")
+
+
 def prune_files() -> None:
     """Remove files based on cookiecutter options."""
     print(f"\n{PURPLE}--- Pruning files based on options ---{ENDC}")
@@ -80,6 +90,7 @@ def display_summary() -> None:
 
 if __name__ == "__main__":
     try:
+        apply_layout()
         prune_files()
         display_summary()
     except Exception:

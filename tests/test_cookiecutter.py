@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import zipfile
+
 
 def test_bake_project(bake):
     """Test that the template bakes successfully with defaults."""
@@ -149,3 +151,40 @@ def test_pre_commit_has_security_hooks(bake):
     project = bake(project_name="test-proj")
     assert project.file_contains(".pre-commit-config.yaml", "detect-secrets")
     assert project.file_contains(".pre-commit-config.yaml", "detect-ip")
+
+
+def test_flat_layout_default(bake):
+    """Test that the default layout keeps the package at the project root."""
+    project = bake(project_name="test-proj")
+    assert project.has_file("test_proj/__init__.py")
+    assert not project.has_dir("src")
+    assert project.file_contains("pyproject.toml", 'packages = ["test_proj"]')
+
+
+def test_src_layout(bake):
+    """Test that layout='src' places the package under src/ and updates tool paths."""
+    project = bake(project_name="test-proj", layout="src")
+    assert project.has_file("src/test_proj/__init__.py")
+    assert not project.has_dir("test_proj")
+    assert project.file_contains("pyproject.toml", 'packages = ["src/test_proj"]')
+    assert project.file_contains("pyproject.toml", 'files = ["src/test_proj"]')
+    assert project.file_contains("mkdocs.yml", 'paths: ["src"]')
+
+
+def test_src_layout_project_runs(bake):
+    """Functional smoke test: a src-layout project installs, passes tests, and builds a correct wheel."""
+    project = bake(project_name="test-proj", layout="src")
+
+    sync = project.run("uv sync")
+    assert sync.returncode == 0, f"uv sync failed:\n{sync.stderr}"
+
+    tests = project.run("uv run python -m pytest tests")
+    assert tests.returncode == 0, f"pytest failed:\n{tests.stdout}\n{tests.stderr}"
+
+    build = project.run("uv build --wheel")
+    assert build.returncode == 0, f"uv build failed:\n{build.stderr}"
+
+    wheels = list((project.path / "dist").glob("*.whl"))
+    assert len(wheels) == 1, f"expected exactly one wheel, found: {wheels}"
+    with zipfile.ZipFile(wheels[0]) as wheel:
+        assert "test_proj/__init__.py" in wheel.namelist(), f"wheel does not contain the package: {wheel.namelist()}"

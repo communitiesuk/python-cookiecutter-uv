@@ -12,6 +12,10 @@
   "__clean_name": "{{cookiecutter.project_name|slugify(separator='-')}}",
   "__clean_slug": "{{cookiecutter.project_slug|slugify(separator='_')}}",
   "project_description": "A brief description of your project.",
+  "layout": [
+    "flat",
+    "src"
+  ],
   "use_ubuntu": "y",
   "use_macos": "y",
   "use_windows": "y",
@@ -56,6 +60,7 @@
     "github_username": "Author's GitHub username",
     "project_name": "Name of your project",
     "project_description": "Project description",
+    "layout": "Project layout (flat: package at root, src: package under src/)",
     "repository_home": "Repository home (communitiesuk or your GitHub username)",
     "use_ubuntu": "Include Ubuntu in CI tests? (y/n)",
     "use_macos": "Include macOS in CI tests? (y/n)",
