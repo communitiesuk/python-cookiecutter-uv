@@ -34,7 +34,7 @@ plugins:
   - mkdocstrings:
       handlers:
         python:
-          paths: ["{{cookiecutter.__clean_slug}}"]
+          paths: ["{% if cookiecutter.layout == 'src' %}src{% else %}{{cookiecutter.__clean_slug}}{% endif %}"]
           options:
             show_source: true
             show_root_heading: true
