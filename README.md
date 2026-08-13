@@ -15,6 +15,7 @@ A Python cookiecutter template using [uv](https://docs.astral.sh/uv/) for depend
 - **`pre-commit`** with security hooks (detect-secrets, IP detection)
 - **GitHub Actions** CI/CD (quality, tests, docs deployment)
 - Type checking via **`mypy`**, **`ty`**, or **`pyrefly`**
+- Choice of **flat** or **src** project layout
 - Optional **PyPI** publishing workflow
 - Multi-OS CI support (Ubuntu, macOS, Windows)
 
